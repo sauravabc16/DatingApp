@@ -32,6 +32,7 @@ namespace API
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
@@ -51,6 +52,13 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // x is basically policy for CORS. We're okay with allowing any header.
+            // We are going to be sending up headers such as authentication headers to our API.
+            // From our angular application.
+            // We want to allow any method, we want to allow put requests, post requests, get requests, etc. But
+            // we are going to be specific on the origin that they come from
+            app.UseCors(x =>x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200")); 
 
             app.UseAuthorization();
 
