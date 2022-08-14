@@ -13,9 +13,10 @@ export class AppComponent implements OnInit{
   users: any; //we are effectivly turning off type safety here in typescript.
   constructor(private accountService: AccountService){}
   
-  
+
   ngOnInit() {
     // this.getUsers();
+    this.setCurrentUser();
   }
 
   setCurrentUser(){
